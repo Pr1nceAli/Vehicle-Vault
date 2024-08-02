@@ -1,11 +1,18 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Jul 22, 2024 at 10:22 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- SQL Script 
+/*  ********************************  
+    Project Phase II  
+    Group "Vehicle Vault"   
+    @ Author: Anthony Pinke, Aly Badr, Johyun Jo
+    This SQL Script was tested on MySQLWorkbench  
+    ********************************  
+*/  
+
+-- ************************************ --
+--               Part A                 --
+-- There are 6 tables for our database --
+-- ************************************ --
+CREATE DATABASE ExoticCars2;
+USE ExoticCars2;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,9 +42,27 @@ CREATE TABLE `all_time_garage` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `enginetype`
+--
+CREATE TABLE `enginetype`(
+    `enginetype` varchar(20) NOT NULL
+   )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+   INSERT INTO `enginetype` (`enginetype`) VALUES
+('I3'),
+('I4'),
+('I5'),
+('I6'),
+('V4'),
+('V6'),
+('V10'),
+('V12'),
+('H4'),
+('H6'),
+('Eletric');
+   
+--
 -- Table structure for table `bodytype`
 --
-
 CREATE TABLE `bodytype` (
   `bodytype` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -293,7 +318,11 @@ ALTER TABLE `bodytype`
 --
 ALTER TABLE `brands`
   ADD PRIMARY KEY (`brand`);
-
+  --
+-- Indexes for table `enginetype`
+--
+ALTER TABLE `enginetype`
+  ADD PRIMARY KEY (`enginetype`);
 --
 -- Indexes for table `current_garage`
 --
@@ -304,8 +333,7 @@ ALTER TABLE `current_garage`
 -- Indexes for table `model`
 --
 ALTER TABLE `model`
-  ADD PRIMARY KEY (`model`);
-
+  ADD PRIMARY KEY (`model`,`brand`,`enginetype`,`bodytype`);
 --
 -- Constraints for dumped tables
 --
