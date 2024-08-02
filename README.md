@@ -39,9 +39,9 @@ This project is a web application that connects to a database containing a varie
    - Add cars to your current garage, all-time garage, or wishlist by clicking the 'Add' button on the view models page.
 
 ## Authors
--Aly Badr  
--Anthony Pinke
--Junghyon Jo
+- Aly Badr  
+- Anthony Pinke
+- Junghyon Jo
 
 ## Contact
 For any questions or suggestions, please open an issue or contact the repository owner at alybadr2409@gmail.com.
