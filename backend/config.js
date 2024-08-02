@@ -19,7 +19,7 @@ host: "localhost",
 port: 3306,
 user: "User",
 password: "carindex!",
-database: "carindex",
+database: "exoticcars2",
 debug: false // Connection debugging mode is ON
 };
 // ----------------------------------------------
