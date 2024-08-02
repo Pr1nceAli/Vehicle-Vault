@@ -84,6 +84,7 @@ app.get("/brands", (request, response) => {
     });
 })
 
+
 // (3)Retrieve all car models from the database
 app.get("/models", (request, response) => {
     const sqlQuery = "SELECT * FROM model;";
@@ -189,7 +190,20 @@ app.get('/garage/alltime', (request, response) => {
         return response.status(200).json(results);
     });
 });
-
+// Fetch models in the wishlist
+app.get('/wishlist', (request, response) => {
+    const sqlQuery = `
+        SELECT model.*, wishlist.added_at
+        FROM wishlist
+        JOIN model ON wishlist.model = model.model
+    `;
+    dbConnection.query(sqlQuery, (error, results) => {
+        if (error) {
+            return response.status(500).json({ Error: "Failed to fetch wishlist models." });
+        }
+        return response.status(200).json(results);
+    });
+});
 
 // (10)insert a new record by model name into the database
 app.post("/models/:model", (request, response) => {
@@ -261,8 +275,17 @@ app.post('/garage/alltime', (request, response) => {
         return response.status(200).json({ Success: "Model added to the all-time garage." });
     });
 });
-
-
+//Add a model to the wishlist
+app.post('/wishlist', (request, response) => {
+    const model = request.body.model;
+    const sqlQuery = 'INSERT INTO wishlist (model) VALUES (?)';
+    dbConnection.query(sqlQuery, [model], (error, result) => {
+        if (error) {
+            return response.status(400).json({ Error: "Failed to add model to the wishlist." });
+        }
+        return response.status(200).json({ Success: "Model added to the wishlist." });
+    });
+});
 
 //(14) PUT route to update a model in the database (by model name)
 app.put("/models/:model", (request, response) => {
@@ -298,6 +321,18 @@ app.delete('/garage/current/:model', (request, response) => {
     dbConnection.query(sqlQuery, [model], (error, results) => {
         if (error) {
             return response.status(500).json({ Error: "Failed to delete model from the current garage." });
+        }
+        return response.status(200).json({ Success: "Model deleted successfully." });
+    });
+});
+
+//Delete a model from the wishlist
+app.delete('/wishlist/:model', (request, response) => {
+    const model = request.params.model;
+    const sqlQuery = 'DELETE FROM wishlist WHERE model = ?';
+    dbConnection.query(sqlQuery, [model], (error, results) => {
+        if (error) {
+            return response.status(500).json({ Error: "Failed to delete model from the wishlist." });
         }
         return response.status(200).json({ Success: "Model deleted successfully." });
     });
