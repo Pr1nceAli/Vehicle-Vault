@@ -190,7 +190,7 @@ app.get('/garage/alltime', (request, response) => {
         return response.status(200).json(results);
     });
 });
-// (17) Fetch models in the wishlist
+// Fetch models in the wishlist
 app.get('/wishlist', (request, response) => {
     const sqlQuery = `
         SELECT model.*, wishlist.added_at
@@ -275,7 +275,7 @@ app.post('/garage/alltime', (request, response) => {
         return response.status(200).json({ Success: "Model added to the all-time garage." });
     });
 });
-// (18) Add a model to the wishlist
+//Add a model to the wishlist
 app.post('/wishlist', (request, response) => {
     const model = request.body.model;
     const sqlQuery = 'INSERT INTO wishlist (model) VALUES (?)';
@@ -326,7 +326,7 @@ app.delete('/garage/current/:model', (request, response) => {
     });
 });
 
-// (19) Delete a model from the wishlist
+//Delete a model from the wishlist
 app.delete('/wishlist/:model', (request, response) => {
     const model = request.params.model;
     const sqlQuery = 'DELETE FROM wishlist WHERE model = ?';
