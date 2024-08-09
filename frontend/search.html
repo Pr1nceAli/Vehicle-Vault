@@ -48,6 +48,8 @@
     </div>
     <div id="brandList" class="mt-4"></div>
     <div id="modelList" class="mt-4"></div>
+    <div id="bodytypeList" class="mt-4"></div>
+    <div id="enginetypeList" class="mt-4"></div>
     <div id="modelDetails" class="mt-4"></div>
 </div>
 
@@ -87,61 +89,126 @@
         }
 
         // Function to fetch and display all car models
-        function fetchModels() {
-            $.ajax({
-                url: 'http://localhost:2000/models',
-                type: 'GET',
-                success: function(models) {
-                    alert('Models loaded successfully!');
-                },
-                error: function() {
-                    $('#modelList').html('<div class="alert alert-danger">Failed to load car models.</div>');
-                }
-            });
-        }
+            function fetchModels() {
+                $.ajax({
+                    url: 'http://localhost:2000/models',
+                    type: 'GET',
+                    success: function(models) {
+                        alert('Models loaded successfully!');
+                    },
+                    error: function() {
+                        $('#modelList').html('<div class="alert alert-danger">Failed to load car models.</div>');
+                    }
+                });
+            }
+            // Function to fetch and display all car body types
+            function fetchBodyTypes() {
+                    $.ajax({
+                        url: 'http://localhost:2000/bodytypes',
+                        type: 'GET',
+                        success: function(bodytypes) {
+                            displayBodyTypes(bodytypes);
+                        },
+                        error: function() {
+                            $('#bodytypeList').html('<div class="alert alert-danger">Failed to load car models.</div>');
+                        }
+                    });
+            }
 
-        // Function to display car brands in a table
-        function displayBrands(brands) {
-            let brandsTable = '<table class="table table-dark">';
-            brandsTable += '<thead><tr><th>Brand</th><th style="text-align: right;">Actions</th></tr></thead>';
-            brandsTable += '<tbody>';
+            // Function to fetch and display all car engine types
+            function fetchEngineTypes() {
+                $.ajax({
+                    url: 'http://localhost:2000/enginetypes',
+                    type: 'GET',
+                    success: function(enginetypes) {
+                            displayEngineTypes(enginetypes);
+                    },
+                    error: function() {
+                        $('#enginetypeList').html('<div class="alert alert-danger">Failed to load car engine types.</div>');
+                    }
+                });
+            }
 
-            brands.forEach(brand => {
-                brandsTable += `<tr>
-                        <td>${brand.brand}</td>
+            // Function to display car brands in a table
+            function displayBrands(brands) {
+                let brandsTable = '<table class="table table-dark">';
+                brandsTable += '<thead><tr><th>Brand</th><th style="text-align: right;">Actions</th></tr></thead>';
+                brandsTable += '<tbody>';
+
+                brands.forEach(brand => {
+                    brandsTable += `<tr>
+                            <td>${brand.brand}</td>
+                            <td style="text-align: right;">
+                                <button class="btn btn-primary view-btn" data-brand="${brand.brand}">View</button>
+                            </td>
+                        </tr>`;
+                });
+
+                brandsTable += '</tbody></table>';
+                $('#brandList').html(brandsTable);
+            }
+
+            // Function to display car models in a table
+            function displayModels(models) {
+                let modelsTable = '<table class="table table-dark">';
+                modelsTable += '<thead><tr><th>Model</th><th style="text-align: right;">Actions</th></tr></thead>';
+                modelsTable += '<tbody>';
+
+                models.forEach(model => {
+                    modelsTable += `<tr>
+                            <td>${model.model}</td>
+                            <td style="text-align: right;">
+                                <button class="btn btn-secondary view-model-btn" data-model="${model.model}">View</button>
+                                <button class="btn btn-success add-model-btn" data-model="${model.model}">Add</button>
+                            </td>
+                        </tr>`;
+                });
+
+                modelsTable += '</tbody></table>';
+                $('#modelList').html(modelsTable);
+            }
+
+            function displayBodyTypes(bodytypes) {
+                let bodytypesTable = '<table class="table table-dark">';
+                    bodytypesTable += '<thead><tr><th>Body Type</th><th style="text-align: right;">Actions</th></tr></thead>';
+                    bodytypesTable += '<tbody>';
+
+                bodytypes.forEach(bodytype => {
+                    bodytypesTable += `<tr>
+                        <td>${bodytype.bodytype}</td>
                         <td style="text-align: right;">
-                            <button class="btn btn-primary view-btn" data-brand="${brand.brand}">View</button>
+                            <button class="btn btn-primary view-bodytype-btn" data-bodytype="${bodytype.bodytype}">View</button>
                         </td>
                     </tr>`;
-            });
+                });
 
-            brandsTable += '</tbody></table>';
-            $('#brandList').html(brandsTable);
-        }
+                bodytypesTable += '</tbody></table>';
+                $('#bodytypeList').html(bodytypesTable);
+            }
+            function displayEngineTypes(enginetypes) {
+                let enginetypesTable = '<table class="table table-dark">';
+                    enginetypesTable += '<thead><tr><th>Engine Type</th><th style="text-align: right;">Actions</th></tr></thead>';
+                    enginetypesTable += '<tbody>';
 
-        // Function to display car models in a table
-        function displayModels(models) {
-            let modelsTable = '<table class="table table-dark">';
-            modelsTable += '<thead><tr><th>Model</th><th style="text-align: right;">Actions</th></tr></thead>';
-            modelsTable += '<tbody>';
-
-            models.forEach(model => {
-                modelsTable += `<tr>
-                        <td>${model.model}</td>
+                enginetypes.forEach(enginetype => {
+                    enginetypesTable += `<tr>
+                        <td>${enginetype.enginetype}</td>
                         <td style="text-align: right;">
-                            <button class="btn btn-secondary view-model-btn" data-model="${model.model}">View</button>
-                            <button class="btn btn-success add-model-btn" data-model="${model.model}">Add</button>
+                            <button class="btn btn-primary view-enginetype-btn" data-enginetype="${enginetype.enginetype}">View</button>
                         </td>
                     </tr>`;
-            });
+                });
 
-            modelsTable += '</tbody></table>';
-            $('#modelList').html(modelsTable);
-        }
+                enginetypesTable += '</tbody></table>';
+                $('#enginetypeList').html(enginetypesTable);
+            }
+    
 
         // Initial fetch of brands and models
         fetchBrands();
         fetchModels();
+        fetchBodyTypes();
+        fetchEngineTypes();
 
         // Handle search input
         $('#searchBar').on('input', function() {
@@ -172,7 +239,35 @@
                     $('#modelList').html('<div class="alert alert-danger">Failed to load car models.</div>');
                 }
             });
+
+            // Fetch and filter bodytypes
+            $.ajax({
+                    url: 'http://localhost:2000/bodytypes',
+                    type: 'GET',
+                    success: function(bodytypes) {
+                        const filteredbodytypes = bodytypes.filter(bodytype => bodytype.bodytype.toLowerCase().includes(query));
+                        displayBodyTypes(filteredbodytypes);
+                    },
+                    error: function() {
+                        $('#bodytypeList').html('<div class="alert alert-danger">Failed to load car models.</div>');
+                    }
+                });
+
+                // Fetch and filter engine types
+            $.ajax({
+                url: 'http://localhost:2000/enginetypes',
+                type: 'GET',
+                success: function(enginetypes) {
+                    const filteredenginetypes = enginetypes.filter(enginetype => enginetype.enginetype.toLowerCase().includes(query));
+                    displayEngineTypes(filteredenginetypes);
+                },
+                error: function() {
+                    $('#enginetypeList').html('<div class="alert alert-danger">Failed to load car engine types.</div>');
+                }
+            });
         });
+
+        
 
         // Handle View button click for brands
         $(document).on('click', '.view-btn', function() {
@@ -256,6 +351,88 @@
                 }
             });
         });
+
+        // Handle View Model button click for bodytype
+        $(document).on('click', '.view-bodytype-btn', function() {
+                const bodytype = $(this).data('bodytype');
+                // Fetch model details
+                $.ajax({
+                    url: 'http://localhost:2000/bodytypes/' + bodytype + '/models',
+                    type: 'GET',
+                    success: function(models) {
+                        if (models.length > 0) {
+                            let modelsTable = `<h3>Models for ${bodytype}</h3><table class="table table-dark"><thead><tr><th>Model</th><th>Actions</th></tr></thead><tbody>`;
+                            models.forEach(model => {
+                                modelsTable += `<tr>
+                                    <td>${model.model}</td>
+                                    <td>
+                                        <button class="btn btn-primary view-model-btn" data-model="${model.model}">View</button>
+                                        <button class="btn btn-success add-model-btn" data-model="${model.model}">Add</button>
+                                        <a href="update.html?model=${model.model}"><button class="btn btn-secondary update-model-btn" data-model="${model.model}">Update</button></a>
+                                    </td>
+                                </tr>`;
+                            });
+                            modelsTable += '</tbody></table>';
+                            modelsTable += '<button class="btn btn-secondary back-to-bodytypes-btn">Back</button>'; // Add back button
+                            modelsTable += '<button class="btn btn-primary create-btn" style ="float:right;">Add New Model</button>';// Add new model
+                            $('#modelList').html(modelsTable);
+                            $('#brandList').hide();
+                            $('#bodytypeList').hide();
+                        } else {
+                            $('#modelList').html('<div class="alert alert-warning">No models found for this body type.</div>');
+                        }
+                    },
+                    error: function() {
+                        $('#modelList').html('<div class="alert alert-danger">Failed to load models for this body type.</div>');
+                    }
+                });
+                // Handle Back button click to show bodytypes again
+                $(document).on('click', '.back-to-bodytypes-btn', function() {
+                    $('#modelList').empty();
+                    $('#bodytypeList').show();
+                });
+            });
+
+            // Handle View Model button click for enginetype
+            $(document).on('click', '.view-enginetype-btn', function() {
+                const enginetype = $(this).data('enginetype');
+                // Fetch model details
+                $.ajax({
+                    url: 'http://localhost:2000/enginetypes/' + enginetype + '/models',
+                    type: 'GET',
+                    success: function(models) {
+                        if (models.length > 0) {
+                            let modelsTable = `<h3>Models for ${enginetype}</h3><table class="table table-dark"><thead><tr><th>Model</th><th>Actions</th></tr></thead><tbody>`;
+                            models.forEach(model => {
+                                modelsTable += `<tr>
+                                    <td>${model.model}</td>
+                                    <td>
+                                        <button class="btn btn-primary view-model-btn" data-model="${model.model}">View</button>
+                                        <button class="btn btn-success add-model-btn" data-model="${model.model}">Add</button>
+                                        <a href="update.html?model=${model.model}"><button class="btn btn-secondary update-model-btn" data-model="${model.model}">Update</button></a>
+                                    </td>
+                                </tr>`;
+                            });
+                            modelsTable += '</tbody></table>';
+                            modelsTable += '<button class="btn btn-secondary back-to-enginetypes-btn">Back</button>'; // Add back button
+                            modelsTable += '<button class="btn btn-primary create-btn" style ="float:right;">Add New Model</button>';// Add new model
+                            $('#modelList').html(modelsTable);
+                            $('#brandList').hide();
+                            $('#enginetypeList').hide();
+                        } else {
+                            $('#modelList').html('<div class="alert alert-warning">No models found for this engine type.</div>');
+                        }
+                    },
+                    error: function() {
+                        $('#modelList').html('<div class="alert alert-danger">Failed to load models for this engine type.</div>');
+                    }
+                });
+                // Handle Back button click to show bodytypes again
+                $(document).on('click', '.back-to-enginetypes-btn', function() {
+                    $('#modelList').empty();
+                    $('#enginetypeList').show();
+                });
+            });
 
         // Handle Add button click for models
         $(document).on('click', '.add-model-btn', function() {

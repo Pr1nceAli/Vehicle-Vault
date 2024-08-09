@@ -97,6 +97,19 @@ app.get("/models", (request, response) => {
     });
 })
 
+// Retrieve all car engine types from the database
+app.get("/enginetypes", (request, response) => {
+    const sqlQuery = "SELECT * FROM enginetype;";
+    dbConnection.query(sqlQuery, (error, result) => {
+        if (error) {
+            return response.status(400).json({Error: "Error in the SQL statement. Please check."})
+        }
+        response.setHeader('SQLQuery', sqlQuery);
+        return response.status(200).json(result);
+    });
+})
+
+
 // (4)Retrieve one car bodytype from the database
 app.get("/bodytypes/:bodytype", (request, response) => {
     const bodytype = request.params.bodytype;
@@ -145,6 +158,24 @@ app.get("/models/:model", (request, response) => {
     });
 })
 
+
+// Retrieve one car enginetype from the database
+app.get("/enginetypes/:enginetype", (request, response) => {
+    const enginetype = request.params.enginetype;
+    const sqlQuery = "SELECT * FROM enginetype WHERE enginetype = '" + enginetype + "';";
+    dbConnection.query(sqlQuery, (error, result) => {
+        if (error) {
+            return response.status(400).json({Error: "Error in the SQL statement. Please check."})
+        }
+        if (result.length === 0) {
+            return response.status(404).json({Error: "Car engine type not found."})
+        }
+        response.setHeader('SQLQuery', sqlQuery);
+        return response.status(200).json(result[0]);
+    });
+})
+
+
 // (7)Retrieve models for a specific brand from the database
 app.get("/brands/:brand/models", (request, response) => {
     const brand = request.params.brand;
@@ -160,6 +191,40 @@ app.get("/brands/:brand/models", (request, response) => {
         return response.status(200).json(result);
     });
 });
+
+// Retrieve one car body type for a specific brand from the database
+app.get("/bodytypes/:bodytype/models", (request, response) => {
+    const bodytype = request.params.bodytype;
+    const sqlQuery = "SELECT * FROM model WHERE bodytype = ?;";
+    dbConnection.query(sqlQuery, [bodytype], (error, result) => {
+        if (error){
+            return response.status(400).json({Error: "Error in the SQL statement. Please check."});
+        }
+        if (result.length === 0) {
+            return response.status(404).json({Error: "No models found for this bodytype."});
+        }
+        response.setHeader('SQLQuery', sqlQuery);
+        return response.status(200).json(result);
+    });
+});
+
+
+// Retrieve one car engine type for a specific brand from the database
+app.get("/enginetypes/:enginetype/models", (request, response) => {
+    const enginetype = request.params.enginetype;
+    const sqlQuery = "SELECT * FROM model WHERE enginetype = ?;";
+    dbConnection.query(sqlQuery, [enginetype], (error, result) => {
+        if (error){
+            return response.status(400).json({Error: "Error in the SQL statement. Please check."});
+        }
+        if (result.length === 0) {
+            return response.status(404).json({Error: "No models found for this enginetype."});
+        }
+        response.setHeader('SQLQuery', sqlQuery);
+        return response.status(200).json(result);
+    });
+});
+
 
 //(8) Fetch models in the current garage
 app.get('/garage/current', (request, response) => {
