@@ -94,7 +94,7 @@
                     url: 'http://localhost:2000/models',
                     type: 'GET',
                     success: function(models) {
-                        alert('Models loaded successfully!');
+                        //alert('Models loaded successfully!');
                     },
                     error: function() {
                         $('#modelList').html('<div class="alert alert-danger">Failed to load car models.</div>');
@@ -132,14 +132,14 @@
             // Function to display car brands in a table
             function displayBrands(brands) {
                 let brandsTable = '<table class="table table-dark">';
-                brandsTable += '<thead><tr><th>Brand</th><th style="text-align: right;">Actions</th></tr></thead>';
+                brandsTable += '<thead><tr><th style = "font-weight: 5000; font-size: 1.0rem; text-decoration: underline;">Brand</th><th style="text-align: right; font-weight: 5000; font-size: 1.0rem; text-decoration: underline;">Actions</th></tr></thead>';
                 brandsTable += '<tbody>';
 
                 brands.forEach(brand => {
                     brandsTable += `<tr>
                             <td>${brand.brand}</td>
                             <td style="text-align: right;">
-                                <button class="btn btn-primary view-btn" data-brand="${brand.brand}">View</button>
+                                <button class="btn btn-primary view-btn" style="border-radius: 50px; padding: 0.5rem 1rem;" data-brand="${brand.brand}">View</button>
                             </td>
                         </tr>`;
                 });
@@ -151,14 +151,14 @@
             // Function to display car models in a table
             function displayModels(models) {
                 let modelsTable = '<table class="table table-dark">';
-                modelsTable += '<thead><tr><th>Model</th><th style="text-align: right;">Actions</th></tr></thead>';
+                modelsTable += '<thead><tr><th style = "font-weight: 5000; font-size: 1.0rem; text-decoration: underline;">Model</th><th style="text-align: right; font-weight: 5000; font-size: 1.0rem; text-decoration: underline;">Actions</th></tr></thead>';
                 modelsTable += '<tbody>';
 
                 models.forEach(model => {
                     modelsTable += `<tr>
                             <td>${model.model}</td>
                             <td style="text-align: right;">
-                                <button class="btn btn-secondary view-model-btn" data-model="${model.model}">View</button>
+                                <button class="btn btn-secondary view-model-btn" style="border-radius: 20px; padding: 0.5rem 1rem;" data-model="${model.model}">View</button>
                                 <button class="btn btn-success add-model-btn" data-model="${model.model}">Add</button>
                             </td>
                         </tr>`;
@@ -170,14 +170,14 @@
 
             function displayBodyTypes(bodytypes) {
                 let bodytypesTable = '<table class="table table-dark">';
-                    bodytypesTable += '<thead><tr><th>Body Type</th><th style="text-align: right;">Actions</th></tr></thead>';
+                    bodytypesTable += '<thead><tr><th style = "font-weight: 5000; font-size: 1.0rem; text-decoration: underline;">Body Type</th><th style="text-align: right; font-weight: 5000; font-size: 1.0rem; text-decoration: underline;">Actions</th></tr></thead>';
                     bodytypesTable += '<tbody>';
 
                 bodytypes.forEach(bodytype => {
                     bodytypesTable += `<tr>
                         <td>${bodytype.bodytype}</td>
                         <td style="text-align: right;">
-                            <button class="btn btn-primary view-bodytype-btn" data-bodytype="${bodytype.bodytype}">View</button>
+                            <button class="btn btn-primary view-bodytype-btn" style="border-radius: 20px; padding: 0.5rem 1rem;" data-bodytype="${bodytype.bodytype}">View</button>
                         </td>
                     </tr>`;
                 });
@@ -187,14 +187,14 @@
             }
             function displayEngineTypes(enginetypes) {
                 let enginetypesTable = '<table class="table table-dark">';
-                    enginetypesTable += '<thead><tr><th>Engine Type</th><th style="text-align: right;">Actions</th></tr></thead>';
+                    enginetypesTable += '<thead><tr><th style = "font-weight: 5000; font-size: 1.0rem; text-decoration: underline;">Engine Type</th><th style="text-align: right; font-weight: 5000; font-size: 1.0rem; text-decoration: underline;">Actions</th></tr></thead>';
                     enginetypesTable += '<tbody>';
 
                 enginetypes.forEach(enginetype => {
                     enginetypesTable += `<tr>
                         <td>${enginetype.enginetype}</td>
                         <td style="text-align: right;">
-                            <button class="btn btn-primary view-enginetype-btn" data-enginetype="${enginetype.enginetype}">View</button>
+                            <button class="btn btn-primary view-enginetype-btn"  style="border-radius: 20px; padding: 0.5rem 1rem;" data-enginetype="${enginetype.enginetype}">View</button>
                         </td>
                     </tr>`;
                 });
@@ -294,6 +294,8 @@
                         modelsTable += '<button class="btn btn-primary create-btn" style="float:right;">Add New Model</button>'; // Add new model
                         $('#modelList').html(modelsTable);
                         $('#brandList').hide();
+                        $('#bodytypeList').hide();
+                        $('#enginetypeList').hide();
                     } else {
                         $('#modelList').html('<div class="alert alert-warning">No models found for this brand.</div>');
                     }
@@ -306,6 +308,8 @@
             $(document).on('click', '.back-to-brands-btn', function() {
                 $('#modelList').empty();
                 $('#brandList').show();
+                $('#bodytypeList').show();
+                $('#enginetypeList').show();
             });
 
             $(document).on('click', '.create-btn', function() {
@@ -378,6 +382,7 @@
                             $('#modelList').html(modelsTable);
                             $('#brandList').hide();
                             $('#bodytypeList').hide();
+                            $('#enginetypeList').hide();
                         } else {
                             $('#modelList').html('<div class="alert alert-warning">No models found for this body type.</div>');
                         }
@@ -390,6 +395,8 @@
                 $(document).on('click', '.back-to-bodytypes-btn', function() {
                     $('#modelList').empty();
                     $('#bodytypeList').show();
+                    $('#brandList').show();
+                    $('#enginetypeList').show();
                 });
             });
 
@@ -418,6 +425,7 @@
                             modelsTable += '<button class="btn btn-primary create-btn" style ="float:right;">Add New Model</button>';// Add new model
                             $('#modelList').html(modelsTable);
                             $('#brandList').hide();
+                            $('#bodytypeList').hide();
                             $('#enginetypeList').hide();
                         } else {
                             $('#modelList').html('<div class="alert alert-warning">No models found for this engine type.</div>');
@@ -431,6 +439,8 @@
                 $(document).on('click', '.back-to-enginetypes-btn', function() {
                     $('#modelList').empty();
                     $('#enginetypeList').show();
+                    $('#brandList').show();
+                    $('#bodytypeList').show();
                 });
             });
 

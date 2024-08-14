@@ -340,6 +340,19 @@ app.post('/garage/alltime', (request, response) => {
         return response.status(200).json({ Success: "Model added to the all-time garage." });
     });
 });
+
+// (13)POST route to add user login information
+app.post('/signup', (request, response) => {
+    const {uemail, upassword, fullname} = request.body;
+    const sqlQuery = 'INSERT INTO logininfo (uemail, upassword, fullname) VALUES (?,?,?)';
+    dbConnection.query(sqlQuery, [uemail, upassword, fullname], (error, result) => {
+        if (error) {
+            return response.status(400).json({ Error: "Failed to add login info." });
+        }
+        return response.status(200).json({ Success: "Login successfully added!" });
+    });
+});
+
 //Add a model to the wishlist
 app.post('/wishlist', (request, response) => {
     const model = request.body.model;

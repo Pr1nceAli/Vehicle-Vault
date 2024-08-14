@@ -44,7 +44,7 @@
         </div>
     </nav>
     <div class = "form-container" >
-        <form id = signup-form class = "form" action="signup.js" method = "post"> 
+        <form id = signup-form class = "form" > 
             <h2>Sign Up</h2>
             <div class = "form-group">
                 <input type="text" style = "margin-left: 22%;" name = "fullname" placeholder = "Full Name">
@@ -62,6 +62,51 @@
             <a href="login.html" style="margin-left: 45%;">Login</a>
         </form>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            console.log("jQuery is loaded and ready");
+    
+            $('#signup').on('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+                console.log("Form submission intercepted");
+    
+                // Collect form data
+                const formData = {
+                    fullname: $('[name=fullname]').val(),
+                    uemail: $('[name=email]').val(),
+                    upassword: $('[name=password]').val(),
+                };
+
+                console.log("Form data collected:", formData);
+    
+                // Send data to the server
+                $.ajax({
+                    url: `http://localhost:2000/signup`, 
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function(data) {
+                        if (data.Error) {
+                            alert(`Error: ${data.Error}`);
+                        }else {
+                            if(data.success === 'Account already exists') {
+                                alert('Account already exists');
+                            }else {
+                                alert(`Success: ${data.Success}`);
+                                $('#signup')[0].reset();
+                            }
+                        }
+                        
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('Failed to add user login.');
+                    }
+                });
+            });
+        });
+    </script>
     
 </body>
 </html>
