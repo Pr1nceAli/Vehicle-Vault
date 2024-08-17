@@ -39,7 +39,20 @@ This project is a web application that connects to a database containing a varie
 
 7. **Manage Garage:**
    - Add cars to your current garage, all-time garage, or wishlist by clicking the 'Add' button on the view models page.
+  
+## Install Program
 
+1. Make sure to have Node.js & Express.js installed on your machine.
+2. Make sure to have XAMPP installed on your machine.
+3. Launch Apache and MySQL from XAMPP.
+4. Open admin for MySQL.
+5. Copy and Paste the code from database.sql into the SQL tab in PHPAdmin.
+6. Create a user under the privileges tab with the information in config.js and select 'check all'.
+7. Open the project in an IDE and open a terminal.
+8. Move into the backend folder and then type 'npm start' and press enter
+9. If successfully setup, you will be connected to the database and can launch the webpages.
+
+    
 ## Authors
 - Aly Badr  
 - Anthony Pinke
