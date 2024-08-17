@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// TCSS 460: Summer 2024
+// TCSS 445: Vehicle Vault
 // Backend REST Service Module
 // ----------------------------------------------
 // Express is a Node.js web application framework
