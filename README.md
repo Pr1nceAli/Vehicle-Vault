@@ -5,15 +5,15 @@ Project for TCSS 445
 
 
 ## Description
-This project is a web application that connects to a database containing a variety of cars. Users can search for vehicles, view brands, see car models, and get detailed information on specific models. Additionally, users can update model information, create new models, and manage their personal collections including a garage, an all-time garage, and a wishlist.
+This project is a web application that connects to a database containing a variety of cars. Users can search for vehicles, view brands, see car models, and get detailed information on specific models. Additionally, users can update model information, create new models, and manage their collections including a garage, an all-time garage, and a wishlist.
 
 ## Features
 - **Search Vehicles:** Users can search for vehicles in the database.
-- **View Brands:** Users can view all car brands currently in the database.
+- **View Brands:** Users can view all car brands in the database.
 - **View Models by Brand:** Users can see all car models associated with a specific brand.
 - **Model Details:** Users can view detailed information about a specific car model.
 - **Update Model Information:** Users can update information on an existing car model.
-- **Add New Model:** Users can create and add a new car model to the database.
+- **Add New Model:** Users can add a new car model to the database.
 - **Manage Garage:** Users can add cars to their current garage, all-time garage, and wishlist.
 
 
@@ -50,8 +50,23 @@ This project is a web application that connects to a database containing a varie
 6. Create a user under the privileges tab with the information in config.js and select 'check all'.
 7. Open the project in an IDE and open a terminal.
 8. Move into the backend folder and then type 'npm start' and press enter
-9. If successfully setup, you will be connected to the database and can launch the webpages.
+9. If successfully set up, you will be connected to the database and can launch the webpages.
 
+## Development Platform
+
+1. VS Code & Intellij
+2. XAMPP
+3. MySQL
+4. Node.js
+5. Express.js
+6. HTML
+7. JavaScripit(JQuery)
+
+## Project Structure
+1. Front-end Folder: Contains HTML files and JQuery
+     - Example: Home.html
+3. Back-end Folder: Contains REST API, HTTPS methods, and config file to connect to database
+     - Example: index.js
     
 ## Authors
 - Aly Badr  
