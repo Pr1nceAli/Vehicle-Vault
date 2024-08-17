@@ -97,7 +97,7 @@ app.get("/models", (request, response) => {
     });
 })
 
-// Retrieve all car engine types from the database
+// (4)Retrieve all car engine types from the database
 app.get("/enginetypes", (request, response) => {
     const sqlQuery = "SELECT * FROM enginetype;";
     dbConnection.query(sqlQuery, (error, result) => {
@@ -110,7 +110,7 @@ app.get("/enginetypes", (request, response) => {
 })
 
 
-// (4)Retrieve one car bodytype from the database
+// (5)Retrieve one car bodytype from the database
 app.get("/bodytypes/:bodytype", (request, response) => {
     const bodytype = request.params.bodytype;
     const sqlQuery = "SELECT * FROM bodytype WHERE bodytype = '" + bodytype + "';";
@@ -126,7 +126,7 @@ app.get("/bodytypes/:bodytype", (request, response) => {
     });
 })
 
-// (5)Retrieve one car brand from the database
+// (6)Retrieve one car brand from the database
 app.get("/brands/:brand", (request, response) => {
     const brand = request.params.brand;
     const sqlQuery = "SELECT * FROM brands WHERE brand = '" + brand + "';";
@@ -142,7 +142,7 @@ app.get("/brands/:brand", (request, response) => {
     });
 })
 
-// (6)Retrieve one car model from the database
+// (7)Retrieve one car model from the database
 app.get("/models/:model", (request, response) => {
     const model = request.params.model;
     const sqlQuery = "SELECT * FROM model WHERE model = ?;";
@@ -159,7 +159,7 @@ app.get("/models/:model", (request, response) => {
 })
 
 
-// Retrieve one car enginetype from the database
+// (8)Retrieve one car enginetype from the database
 app.get("/enginetypes/:enginetype", (request, response) => {
     const enginetype = request.params.enginetype;
     const sqlQuery = "SELECT * FROM enginetype WHERE enginetype = '" + enginetype + "';";
@@ -176,7 +176,7 @@ app.get("/enginetypes/:enginetype", (request, response) => {
 })
 
 
-// (7)Retrieve models for a specific brand from the database
+// (9)Retrieve models for a specific brand from the database
 app.get("/brands/:brand/models", (request, response) => {
     const brand = request.params.brand;
     const sqlQuery = "SELECT * FROM model WHERE brand = ?;";
@@ -192,7 +192,7 @@ app.get("/brands/:brand/models", (request, response) => {
     });
 });
 
-// Retrieve one car body type for a specific brand from the database
+// (10)Retrieve models for a specific body type
 app.get("/bodytypes/:bodytype/models", (request, response) => {
     const bodytype = request.params.bodytype;
     const sqlQuery = "SELECT * FROM model WHERE bodytype = ?;";
@@ -209,7 +209,7 @@ app.get("/bodytypes/:bodytype/models", (request, response) => {
 });
 
 
-// Retrieve one car engine type for a specific brand from the database
+// (11)Retrieve the models for a specific engine type
 app.get("/enginetypes/:enginetype/models", (request, response) => {
     const enginetype = request.params.enginetype;
     const sqlQuery = "SELECT * FROM model WHERE enginetype = ?;";
@@ -226,7 +226,7 @@ app.get("/enginetypes/:enginetype/models", (request, response) => {
 });
 
 
-//(8) Fetch models in the current garage
+//(12) Fetch models in the current garage
 app.get('/garage/current', (request, response) => {
     const sqlQuery = `
         SELECT model.*, current_garage.added_at
@@ -241,7 +241,7 @@ app.get('/garage/current', (request, response) => {
     });
 });
 
-// (9)Fetch models in the alltime garage
+// (13)Fetch models in the alltime garage
 app.get('/garage/alltime', (request, response) => {
     const sqlQuery = `
         SELECT model.*, all_time_garage.added_at
@@ -255,7 +255,7 @@ app.get('/garage/alltime', (request, response) => {
         return response.status(200).json(results);
     });
 });
-// Fetch models in the wishlist
+// (14)Fetch models in the wishlist
 app.get('/wishlist', (request, response) => {
     const sqlQuery = `
         SELECT model.*, wishlist.added_at
@@ -270,7 +270,7 @@ app.get('/wishlist', (request, response) => {
     });
 });
 
-// (10)insert a new record by model name into the database
+// (15)insert a new record by model name into the database
 app.post("/models/:model", (request, response) => {
     const model = request.params.model;
     const checkQuery = 'SELECT * FROM model WHERE model = ?;';
@@ -294,7 +294,7 @@ app.post("/models/:model", (request, response) => {
     });
 })
 
-// (11)insert a new record by brand name into the database
+// (16)insert a new record by brand name into the database
 app.post("/brands/:brand", (request, response) => {
     const brand = request.params.brand;
     const checkQuery = 'SELECT * FROM brands WHERE brand = ?;';
@@ -317,7 +317,7 @@ app.post("/brands/:brand", (request, response) => {
     });
 })
 
-// (12)POST route to add a model to the current garage
+// (17)POST route to add a model to the current garage
 app.post('/garage/current', (request, response) => {
     const model = request.body.model;
     const sqlQuery = 'INSERT INTO current_garage (model) VALUES (?)';
@@ -329,7 +329,7 @@ app.post('/garage/current', (request, response) => {
     });
 });
 
-// (13)POST route to add a model to the all-time garage
+// (18)POST route to add a model to the all-time garage
 app.post('/garage/alltime', (request, response) => {
     const model = request.body.model;
     const sqlQuery = 'INSERT INTO all_time_garage (model) VALUES (?)';
@@ -341,7 +341,7 @@ app.post('/garage/alltime', (request, response) => {
     });
 });
 
-// (13)POST route to add user login information
+// (19)POST route to add user login information
 app.post('/signup', (request, response) => {
     const {uemail, upassword, fullname} = request.body;
     const sqlQuery = 'INSERT INTO logininfo (uemail, upassword, fullname) VALUES (?,?,?)';
@@ -353,7 +353,7 @@ app.post('/signup', (request, response) => {
     });
 });
 
-//Add a model to the wishlist
+//(20)Add a model to the wishlist
 app.post('/wishlist', (request, response) => {
     const model = request.body.model;
     const sqlQuery = 'INSERT INTO wishlist (model) VALUES (?)';
@@ -365,7 +365,7 @@ app.post('/wishlist', (request, response) => {
     });
 });
 
-//(14) PUT route to update a model in the database (by model name)
+//(21) PUT route to update a model in the database (by model name)
 app.put("/models/:model", (request, response) => {
     const model = request.params.model;
     const sqlQuery = 'UPDATE model SET brand =?,bodytype =?, enginename =?, enginetype =?, top_speed =?, bhp =?, torque =?, info =? WHERE model =?;';
@@ -380,7 +380,7 @@ app.put("/models/:model", (request, response) => {
     });
 });
 
-//(15)Delete model from all-time garage
+//(22)Delete model from all-time garage
 app.delete('/garage/alltime/:model', (request, response) => {
     const model = request.params.model;
     const sqlQuery = 'DELETE FROM all_time_garage WHERE model = ?';
@@ -392,7 +392,7 @@ app.delete('/garage/alltime/:model', (request, response) => {
     });
 });
 
-//(16)Delete model from current garage
+//(23)Delete model from current garage
 app.delete('/garage/current/:model', (request, response) => {
     const model = request.params.model;
     const sqlQuery = 'DELETE FROM current_garage WHERE model = ?';
@@ -404,7 +404,7 @@ app.delete('/garage/current/:model', (request, response) => {
     });
 });
 
-//Delete a model from the wishlist
+// (24)Delete a model from the wishlist
 app.delete('/wishlist/:model', (request, response) => {
     const model = request.params.model;
     const sqlQuery = 'DELETE FROM wishlist WHERE model = ?';
