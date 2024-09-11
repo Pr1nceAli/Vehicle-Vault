@@ -1,7 +1,6 @@
 # Vehicle-Vault
-Project for TCSS 445
 Vehicle-Vault [Car Database Website]
-Project for TCSS 445
+
 
 
 ## Description
